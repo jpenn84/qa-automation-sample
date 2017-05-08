@@ -1,0 +1,22 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: lightblue;
+}
+
+.pass {
+    color: green;
+}
+
+.fail {
+    color: red
+}
+
+.skip {
+    background-color: yellow;
+}
+
+.tag-class::before {
+    font-weight: bolder;
+    color: red;
+    content: "* ";
+}

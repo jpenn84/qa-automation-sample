@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script>
+        $(document).ready(function(){
+            $("#show-name").click(function(){
+                $("#name-output").text("Hello " + $("#name-input").val() + "!");
+            });
+            $("#add-good").click(function(){
+                var addend1 = document.getElementById("first-num-good").value;
+                var addend2 = document.getElementById("second-num-good").value;
+                var sum = +addend1 + +addend2;
+                document.getElementById("good-sum").innerHTML = sum;
+            });
+            $("#add-bad").click(function(){
+                var addend1 = document.getElementById("first-num-bad").value;
+                var addend2 = document.getElementById("second-num-bad").value;
+                var sum = addend1 + addend2;
+                document.getElementById("bad-sum").innerHTML = sum;
+            });
+        });
+        </script>
+    </head>
+    <body>
+        <h1>QA Automation Sample Site</h1>
+        <p>The purpose of this site is to demonstrate my code for various QA automation techniques.</p>
+        <p>This should, in no way, shape, or form, imply that I am a front-end web developer.</p>
+        <p>Perhaps if this was 1997, I could create an awesome Geocities page about Pogs, or I could Join a Collective Soul Webring.</p>
+
+        <div id="good-math">
+            <h2>Add 2 single-digit numbers. This will return the correct value and the test should <span class="pass">pass<span></h2>
+            <input id="first-num-good" type="text" maxlength="1">
+            <input id="second-num-good" type="text" maxlength="1">
+            <button id="add-good">Add</button>
+            <span id="good-sum"></span>
+        </div>
+
+        <div id="bad-math">
+            <h2>Add 2 single-digit numbers. This will concatenate the values and the test should <span class="fail">fail</span></h2>
+            <input id="first-num-bad" type="text" maxlength="1">
+            <input id="second-num-bad" type="text" maxlength="1">
+            <button id="add-bad">Add</button>
+            <span id="bad-sum"></span>
+        </div>
+
+        <div id="skip-math">
+            <h2>Add 2 single-digit numbers. This is disabled and the test should <span class="skip">skip</span></h2>
+            <input id="first-num-skip" type="text" maxlength="1" disabled>
+            <input id="second-num-skip" type="text" maxlength="1"disabled>
+            <button id="add-skip"disabled>Add</button>
+            <span id="skip-sum"></span>
+        </div>
+
+        <div id="misc-stuff">
+            <h2>Misc stuff. All related tests should pass</h2>
+            <div>
+                <span>Name:</span>
+                <input id="name-input" type="text">
+                <button id="show-name">Say Hello</button>
+                <span id="name-output"></span>
+            </div>
+            <p class="one-class">This paragraph has one class attribute</p>
+            <p class="two class">This paragraph has 2 class attributes</p>
+            <p class="tag-class">This paragraph and the div below have the same class attribute. Find the paragraph using the tag and class</p>
+            <div class="tag-class">This div and the paragraph above have the same class attribute. Find the paragraph using the tag and class</div>
+        </div>
+
+    </body>
+</html>
