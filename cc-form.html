@@ -4,9 +4,14 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
         <script src="https://use.fontawesome.com/cbe9a03a9d.js"></script>
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        
+        <script src="cc-form.js">
+        
+        </script>
+
     </head>
     <body>
         <nav class="navbar navbar-inverse">
@@ -27,10 +32,10 @@
                             <a class="navbar-brand" href="#">Checkout</a>
                         </div>
                         <ul class="nav navbar-nav pull-right">
-                        <li class="active"><a href="#">1. Billing</a></li>
-                        <li><a href="#">2. Shipping</a></li>
-                        <li class="disabled"><a href="#">3. Payment</a></li>
-                        <li class="disabled"><a href="#">4. Place Order</a></li>
+                        <li id="billing-tab"><a href="#">1. Billing</a></li>
+                        <li id="shipping-tab"><a href="#">2. Shipping</a></li>
+                        <li id="payment-tab" class="disabled"><a href="#">3. Payment</a></li>
+                        <li id="order-tab" class="disabled"><a href="#">4. Place Order</a></li>
                         </ul>
                     </div>
                     </nav>
@@ -41,134 +46,138 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="firstName">First Name:</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="First name">
+                                <input type="text" class="form-control" id="billingFirstName" placeholder="First name" required>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="middleName">Middle Name:</label>
-                                <input type="text" class="form-control" id="middleName" placeholder="Middle name">
+                                <input type="text" class="form-control" id="billingMiddleName" placeholder="Middle name">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="lastName">Last Name:</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="Last name">
+                                <input type="text" class="form-control" id="billingLastName" placeholder="Last name" required>
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label for="addressLine1">Address Line 1:</label>
-                                <input type="text" class="form-control" id="addressLine1" placeholder="Address">
+                                <input type="text" class="form-control" id="billingAddressLine1" placeholder="Address" required>
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label for="addressLine2">Address Line 2:</label>
-                                <input type="text" class="form-control" id="addressLine2" placeholder="Address">
+                                <input type="text" class="form-control" id="billingAddressLine2" placeholder="Address">
                             </div>
                         </div>
                         <div class="col-sm-7">
                             <div class="form-group">
                                 <label for="city">City:</label>
-                                <input type="text" class="form-control" id="city" placeholder="City">
+                                <input type="text" class="form-control" id="billingCity" placeholder="City" required>
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label for="state">State:</label>
-                                <input type="text" class="form-control" id="state" placeholder="State">
+                                <input type="text" class="form-control" id="billingState" placeholder="State" required>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="zip">Zip:</label>
-                                <input type="text" class="form-control" id="zip" placeholder="Zip">
+                                <input type="text" class="form-control" id="billingZip" placeholder="Zip" required>
                             </div>
                         </div>
                         <div class="col-sm-8">
                             <div class="form-group">
                                 <label for="email">Email:</label>
-                                <input type="email" class="form-control" id="email" placeholder="email">
+                                <input type="email" class="form-control" id="email" placeholder="email" required>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="phone">Phone:</label>
-                                <input type="text" class="form-control" id="phone" placeholder="Phone">
+                                <input type="text" class="form-control" id="billingPhone" placeholder="Phone" required>
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <button type="button" class="btn btn-primary pull-right">Next: Shipping Address</button>
+                            <button type="button" id="next-shipping" class="btn btn-primary pull-right">Next: Shipping Address</button>
                         </div>
                     </div>
                     <div id="shipping-address-form">
                         <div class="col-sm-12">
                             <h2>Shipping Address</h2>
                         </div>
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label><input type="checkbox" value="" id="sameAsBilling">Same as billing address</label>
+                            </div>
+                        </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="firstName">First Name:</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="First name">
+                                <input type="text" class="form-control" id="shippingFirstName" placeholder="First name" required>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="middleName">Middle Name:</label>
-                                <input type="text" class="form-control" id="middleName" placeholder="Middle name">
+                                <input type="text" class="form-control" id="shippingMiddleName" placeholder="Middle name">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="lastName">Last Name:</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="Last name">
+                                <input type="text" class="form-control" id="shippingLastName" placeholder="Last name" required>
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label for="addressLine1">Address Line 1:</label>
-                                <input type="text" class="form-control" id="addressLine1" placeholder="Address">
+                                <input type="text" class="form-control" id="shippingAddressLine1" placeholder="Address" required>
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label for="addressLine2">Address Line 2:</label>
-                                <input type="text" class="form-control" id="addressLine2" placeholder="Address">
+                                <input type="text" class="form-control" id="shippingAddressLine2" placeholder="Address">
                             </div>
                         </div>
                         <div class="col-sm-7">
                             <div class="form-group">
                                 <label for="city">City:</label>
-                                <input type="text" class="form-control" id="city" placeholder="City">
+                                <input type="text" class="form-control" id="shippingCity" placeholder="City" required>
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label for="state">State:</label>
-                                <input type="text" class="form-control" id="state" placeholder="State">
+                                <input type="text" class="form-control" id="shippingState" placeholder="State" required>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="zip">Zip:</label>
-                                <input type="text" class="form-control" id="zip" placeholder="Zip">
+                                <input type="text" class="form-control" id="shippingZip" placeholder="Zip" required>
                             </div>
                         </div>
                     
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="phone">Phone:</label>
-                                <input type="text" class="form-control" id="phone" placeholder="Phone">
+                                <input type="text" class="form-control" id="shippingPhone" placeholder="Phone" required>
                             </div>
                         </div>
                         <div class="col-sm-8 col-sm-offset-8">
-                            
                         </div>
                         <div class="col-sm-6">
-                            <button type="button" class="btn btn-default">Previous: Billing Address</button>
+                            <button type="button" id = "prev-billing" class="btn">Previous: Billing Address</button>
                         </div>
                         <div class="col-sm-6">
-                            <button type="button" class="btn btn-primary pull-right">Next: Payment Method</button>
+                            <button type="button" id = "next-payment" class="btn btn-primary pull-right">Next: Payment Method</button>
                         </div>
                     </div>
 
@@ -187,7 +196,7 @@
                                 <label for="ccNumber">Card Number:</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="ccNumber" placeholder="4111 1111 1111 1111"
-                                        required autofocus />
+                                        required />
                                     <span class="input-group-addon"><span class="fa fa-credit-card-alt"></span></span>
                                 </div>
                             </div>
@@ -206,13 +215,29 @@
                         </div>
 
                         <div class="col-sm-6">
-                            <button type="button" class="btn btn-default">Previous: Billing Address</button>
+                            <button type="button" id="prev-shipping" class="btn">Previous: Shipping Address</button>
                         </div>
                         <div class="col-sm-6">
-                            <button type="button" class="btn btn-primary pull-right">Next: Review & Place Order</button>
+                            <button type="button" id="next-review" class="btn btn-primary pull-right">Next: Review & Place Order</button>
                         </div>
                     </div>
-
+                    <div id="review-form">
+                        <div class="col-sm-12">
+                            <h2>Review your order</h2>
+                        </div>
+                        <div class="col-sm-6">
+                            <h3>Billing Address</h3>
+                            <p id="review-billing-address"></p>
+                        </div>
+                        <div class="col-sm-6">
+                            <h3>Shipping Address</h3>
+                            <p id="review-shipping-address"></p>
+                        </div>
+                        <div class="col-sm-6">
+                            <h3>Billing Details</h3>
+                            <p id="review-payment-details"></p>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
