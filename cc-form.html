@@ -2,7 +2,7 @@
     <head>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
+        <link rel="stylesheet" type="text/css" href="cc-form.css">
         <script src="https://use.fontawesome.com/cbe9a03a9d.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <!-- Latest compiled and minified JavaScript -->
@@ -35,7 +35,7 @@
                         <li id="billing-tab"><a href="#">1. Billing</a></li>
                         <li id="shipping-tab"><a href="#">2. Shipping</a></li>
                         <li id="payment-tab" class="disabled"><a href="#">3. Payment</a></li>
-                        <li id="order-tab" class="disabled"><a href="#">4. Place Order</a></li>
+                        <li id="review-tab" class="disabled"><a href="#">4. Review</a></li>
                         </ul>
                     </div>
                     </nav>
@@ -197,7 +197,7 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="ccNumber" placeholder="4111 1111 1111 1111"
                                         required />
-                                    <span class="input-group-addon"><span class="fa fa-credit-card-alt"></span></span>
+                                    <span class="input-group-addon"><span id="ccIcon" class="fa fa-credit-card-alt"></span></span>
                                 </div>
                             </div>
                         </div>
@@ -215,28 +215,39 @@
                         </div>
 
                         <div class="col-sm-6">
-                            <button type="button" id="prev-shipping" class="btn">Previous: Shipping Address</button>
+                            <button type="button" id="prev-shipping" class="btn">Previous: Payment Method</button>
                         </div>
                         <div class="col-sm-6">
-                            <button type="button" id="next-review" class="btn btn-primary pull-right">Next: Review & Place Order</button>
+                            <button type="button" id="next-review" class="btn btn-primary pull-right">Next: Review</button>
                         </div>
                     </div>
                     <div id="review-form">
                         <div class="col-sm-12">
                             <h2>Review your order</h2>
+                        
+                            <div class="col-sm-6">
+                                <h3>Billing Address</h3>
+                                <p id="review-billing-address"></p>
+                            </div>
+                            <div class="col-sm-6">
+                                <h3>Shipping Address</h3>
+                                <p id="review-shipping-address"></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-6">
+                                <h3>Billing Details</h3>
+                                <p id="review-payment-details"></p>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <button type="button" id="prev-payment" class="btn">Previous: Shipping Address</button>
                         </div>
                         <div class="col-sm-6">
-                            <h3>Billing Address</h3>
-                            <p id="review-billing-address"></p>
+                            <button type="button" id="next-place-order" class="btn btn-primary pull-right">Next: Place Order</button>
                         </div>
-                        <div class="col-sm-6">
-                            <h3>Shipping Address</h3>
-                            <p id="review-shipping-address"></p>
-                        </div>
-                        <div class="col-sm-6">
-                            <h3>Billing Details</h3>
-                            <p id="review-payment-details"></p>
-                        </div>
+
                     </div>
                 </div>
             </form>

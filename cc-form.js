@@ -2,10 +2,12 @@ $(document).ready(function(){
     var billingPageDone = false;
     var shippingPageDone = false;
     var paymentPageDone = false;
+    var ccBrand = "-1"
     function billingPage() {
         $("#billing-address-form").show();
         $("#shipping-address-form").hide();
         $("#payment-method-form").hide();
+        $("#review-form").hide();
         $("#billing-tab").addClass("active");
         if (!billingPageDone) $("#shipping-tab").addClass("disabled");
         else $("#shipping-tab").removeClass("active");
@@ -18,6 +20,7 @@ $(document).ready(function(){
         $("#billing-address-form").hide();
         $("#shipping-address-form").show();
         $("#payment-method-form").hide();
+        $("#review-form").hide();
         $("#billing-tab").removeClass("active");
         $("#shipping-tab").removeClass("disabled").addClass("active");
         if (!shippingPageDone) $("#payment-tab").addClass("disabled");
@@ -29,6 +32,7 @@ $(document).ready(function(){
         $("#billing-address-form").hide();
         $("#shipping-address-form").hide();
         $("#payment-method-form").show();
+        $("#review-form").hide();
         $("#billing-tab").removeClass("active");
         $("#shipping-tab").removeClass("active");
         $("#payment-tab").removeClass("disabled").addClass("active");
@@ -36,6 +40,15 @@ $(document).ready(function(){
         else $("#order-tab").removeClass("active");
     }
     function reviewPage() {
+        $("#billing-address-form").hide();
+        $("#shipping-address-form").hide();
+        $("#payment-method-form").hide();
+        $("#review-form").show();
+        $("#billing-tab").removeClass("active");
+        $("#shipping-tab").removeClass("active");
+        $("#payment-tab").removeClass("active");
+        $("#order-tab").removeClass("disabled").addClass("active");
+
         var billingFirstName = document.getElementById("billingFirstName").value;
         var billingMiddleName = document.getElementById("billingMiddleName").value;
         var billingLastName = document.getElementById("billingLastName").value;
@@ -79,6 +92,14 @@ $(document).ready(function(){
         var reviewshippingSection = reviewshippingName + "<br />" + reviewshippingAddress + "<br />" 
             + reviewCityStZip + "<br />" + shippingPhone;
         document.getElementById("review-shipping-address").innerHTML = reviewshippingSection
+        var lastDigits = "-1";
+        if (ccBrand == "AMEX") {
+            lastDigits = ccNumber.value.substring(9, 14);
+        } else {
+            lastDigits = ccNumber.value.substring(11, 15);
+        }
+        document.getElementById("review-payment-details").innerHTML = ccName + "<br />" + 
+                ccBrand + " Ending in " + lastDigits + "<br />Expires " + ccExp;
     }
     $("#sameAsBilling").click(function(){
         if(document.getElementById('sameAsBilling').checked) {
@@ -103,7 +124,7 @@ $(document).ready(function(){
             $("#shippingPhone").val("").prop("disabled", false);
         }
     });
-    //billingPage();
+    billingPage();
     $("#next-shipping").click(function(){
         shippingPage();
         billingPageDone = true;
@@ -118,22 +139,73 @@ $(document).ready(function(){
     $("#prev-shipping").click(function(){
         shippingPage();
     });
-    $("#billing-tab").click(function(){
-        billingPage();
-    });
+    
     $("#next-review").click(function(){
-        reviewPage();
+        
         paymentPageDone = true;
+        reviewPage();
     });
     $("#prev-payment").click(function(){
-        paymentPage();
+        
         shippingPageDone = true;
+        paymentPage();
+    });
+    $("#billing-tab").click(function(){
+        billingPage();
     });
     $("#shipping-tab").click(function(){
         shippingPage();
     });
     $("#payment-tab").click(function(){
         paymentPage();
+    });
+    $("#review-tab").click(function(){
+        reviewPage();
+    });
+    
+
+    $('#ccNumber').on('input', function() { 
+        if ($(this).val().match("^3")) {
+            $("#ccIcon")
+                    .removeClass("fa-credit-card-alt")
+                    .removeClass("fa-cc-visa")
+                    .removeClass("fa-cc-discover")
+                    .removeClass("fa-cc-mastercard")
+                    .addClass("fa-cc-amex");
+            ccBrand = "AMEX";
+        } else if ($(this).val().match("^4")) {
+            $("#ccIcon")
+                    .removeClass("fa-credit-card-alt")
+                    .removeClass("fa-cc-amex")
+                    .removeClass("fa-cc-discover")
+                    .removeClass("fa-cc-mastercard")
+                    .addClass("fa-cc-visa");
+            ccBrand = "VISA";
+        } else if ($(this).val().match("^5")) {
+            $("#ccIcon")
+                    .removeClass("fa-credit-card-alt")
+                    .removeClass("fa-cc-amex")
+                    .removeClass("fa-cc-discover")
+                    .removeClass("fa-cc-visa")
+                    .addClass("fa-cc-mastercard");
+            ccBrand = "MC";
+        } else if ($(this).val().match("^6")) {
+            $("#ccIcon")
+                    .removeClass("fa-credit-card-alt")
+                    .removeClass("fa-cc-amex")
+                    .removeClass("fa-cc-visa")
+                    .removeClass("fa-cc-mastercard")
+                    .addClass("fa-cc-discover");
+            ccBrand = "DISC";
+        } else {
+            $("#ccIcon")
+                    .removeClass("fa-cc-discover")
+                    .removeClass("fa-cc-amex")
+                    .removeClass("fa-cc-visa")
+                    .removeClass("fa-cc-mastercard")
+                    .addClass("fa-credit-card-alt");
+            ccBrand = "-1";
+        }
     });
 
 
