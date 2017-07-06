@@ -11,8 +11,6 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="cc-form.js"></script>
-    <script src="cc-form-field-validation.js"></script>
-    <script src="payment-form.js"></script>
 </head>
 
 <body>
@@ -84,7 +82,7 @@
                     <div class="col-md-2">
                         <div class="form-group required" id="billingStateGroup">
                             <label for="state">State:</label>
-                            <input type="text" class="form-control" id="billingState" placeholder="State" maxlength="2" required>
+                            <input type="text" class="form-control" id="billingState" placeholder="ST" style="text-transform:uppercase" maxlength="2" required>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -109,7 +107,7 @@
                         <button type="button" id="next-shipping" class="btn btn-primary pull-right">Next: Shipping Address</button>
                     </div>
                 </div>
-                <!-- Shipping Address form -->
+                <!-- Shipping address form -->
                 <div id="shipping-address-form">
                     <div class="col-md-12">
                         <h2>Shipping Address</h2>
@@ -158,7 +156,7 @@
                     <div class="col-md-2">
                         <div class="form-group required" id="shippingStateGroup">
                             <label for="state">State:</label>
-                            <input type="text" class="form-control" id="shippingState" placeholder="State" maxlength="2" required>
+                            <input type="text" class="form-control" id="shippingState" placeholder="ST" style="text-transform:uppercase" maxlength="2" required>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -167,7 +165,6 @@
                             <input type="number" class="form-control" id="shippingZip" placeholder="Zip" maxlength="5" required>
                         </div>
                     </div>
-
                     <div class="col-md-4">
                         <div class="form-group required" id="shippingPhoneGroup">
                             <label for="phone">Phone:</label>
@@ -183,7 +180,7 @@
                         <button type="button" id="next-payment" class="btn btn-primary pull-right">Next: Payment Method</button>
                     </div>
                 </div>
-
+                <!-- Payment method form -->
                 <div id="payment-method-form">
                     <div class="col-md-12">
                         <h2>Payment Method</h2>
@@ -206,13 +203,13 @@
                     <div class="col-md-3">
                         <div class="form-group required" id="ccCvvGroup">
                             <label for="ccCvv" id="ccCvvLabel">CVV:</label>
-                            <input type="text" class="form-control" id="ccCvv" placeholder="123">
+                            <input type="text" class="form-control" id="ccCvv" placeholder="###">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group required" id="ccExpGroup">
                             <label for="ccExp">Exp Date:</label>
-                            <input type="text" class="form-control" id="ccExp" placeholder="1221">
+                            <input type="text" class="form-control" id="ccExp" placeholder="MMYY">
                         </div>
                     </div>
                     <div class="col-md-12"></div>

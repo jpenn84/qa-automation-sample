@@ -2,8 +2,38 @@ $(document).ready(function() {
     var billingPageDone = false;
     var shippingPageDone = false;
     var paymentPageDone = false;
+    var ccBrand = "-1";
+    var states = ['AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS',
+        'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH',
+        'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY', 'AE', 'AA', 'AP'
+    ];
+
+    $("#billingZip").keyup(function() {
+        $("#billingZip").val(this.value.match(/[0-9]*/));
+    });
+
+    $("#billingPhone").keyup(function() {
+        var phoneNumDigits = this.value.replace(/\D/g, '');
+        if (phoneNumDigits.length > 6) {
+            $("#billingPhone").val(phoneNumDigits.substring(0, 10).replace(/(\d{3})(\d{3})(\d)/, "($1) $2-$3"));
+        } else if (phoneNumDigits.length > 3) {
+            $("#billingPhone").val(phoneNumDigits.replace(/(\d{3})(\d)/, "($1) $2"));
+        } else {
+            $("#billingPhone").val(phoneNumDigits)
+        }
+    });
+
+
+    /*
+
+    function is_email(email){      
+var emailReg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+return emailReg.test(email); } 
+
+    */
 
     function validateBillingPage() {
+        var emailReg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
         var valid = true;
         if (document.getElementById("billingFirstName").value.length < 1) {
             $("#billingFirstNameGroup").addClass("has-error");
@@ -21,19 +51,19 @@ $(document).ready(function() {
             $("#billingCityGroup").addClass("has-error");
             valid = false;
         } else $("#billingCityGroup").removeClass("has-error");
-        if (document.getElementById("billingState").value.length < 1) {
+        if (states.indexOf(document.getElementById("billingState").value.toUpperCase()) == -1) {
             $("#billingStateGroup").addClass("has-error");
             valid = false;
         } else $("#billingStateGroup").removeClass("has-error");
-        if (document.getElementById("billingZip").value.length < 1) {
+        if (document.getElementById("billingZip").value.length != 5) {
             $("#billingZipGroup").addClass("has-error");
             valid = false;
         } else $("#billingZipGroup").removeClass("has-error");
-        if (document.getElementById("email").value.length < 1) {
+        if (!emailReg.test(document.getElementById("email").value)) {
             $("#emailGroup").addClass("has-error");
             valid = false;
         } else $("#emailGroup").removeClass("has-error");
-        if (document.getElementById("billingPhone").value.length < 1) {
+        if (document.getElementById("billingPhone").value.replace(/\D/g, '').length != 10) {
             $("#billingPhoneGroup").addClass("has-error");
             valid = false;
         } else $("#billingPhoneGroup").removeClass("has-error");
@@ -43,38 +73,56 @@ $(document).ready(function() {
         }
     }
 
+    $("#shippingZip").keyup(function() {
+        $("#shippingZip").val(this.value.match(/[0-9]*/));
+    });
+
+    $("#shippingPhone").keyup(function() {
+        var phoneNumDigits = this.value.replace(/\D/g, '');
+        if (phoneNumDigits.length > 6) {
+            $("#shippingPhone").val(phoneNumDigits.replace(/(\d{3})(\d{3})(\d)/, "($1) $2-$3"));
+        } else if (phoneNumDigits.length > 3) {
+            $("#shippingPhone").val(phoneNumDigits.replace(/(\d{3})(\d)/, "($1) $2"));
+        } else {
+            $("#shippingPhone").val(phoneNumDigits)
+        }
+    });
+
     function validateShippingPage() {
         var valid = true;
         if (document.getElementById("shippingFirstName").value.length < 1) {
             $("#shippingFirstNameGroup").addClass("has-error");
+            console.log("fn");
             valid = false;
         } else $("#shippingFirstNameGroup").removeClass("has-error");
         if (document.getElementById("shippingLastName").value.length < 1) {
             $("#shippingLastNameGroup").addClass("has-error");
+            console.log("ln");
             valid = false;
         } else $("#shippingLastNameGroup").removeClass("has-error");
         if (document.getElementById("shippingAddressLine1").value.length < 1) {
             $("#shippingAddressLine1Group").addClass("has-error");
+            console.log("addr1");
             valid = false;
         } else $("#shippingAddressLine1Group").removeClass("has-error");
         if (document.getElementById("shippingCity").value.length < 1) {
             $("#shippingCityGroup").addClass("has-error");
+            console.log("city");
             valid = false;
         } else $("#shippingCityGroup").removeClass("has-error");
-        if (document.getElementById("shippingState").value.length < 1) {
+        if (states.indexOf(document.getElementById("shippingState").value.toUpperCase()) == -1) {
             $("#shippingStateGroup").addClass("has-error");
+            console.log("state");
             valid = false;
         } else $("#shippingStateGroup").removeClass("has-error");
         if (document.getElementById("shippingZip").value.length < 1) {
             $("#shippingZipGroup").addClass("has-error");
+            console.log("zip");
             valid = false;
         } else $("#shippingZipGroup").removeClass("has-error");
-        if (document.getElementById("email").value.length < 1) {
-            $("#emailGroup").addClass("has-error");
-            valid = false;
-        } else $("#emailGroup").removeClass("has-error");
-        if (document.getElementById("shippingPhone").value.length < 1) {
+        if (document.getElementById("shippingPhone").value.replace(/\D/g, '').length != 10) {
             $("#shippingPhoneGroup").addClass("has-error");
+            console.log("phone");
             valid = false;
         } else $("#shippingPhoneGroup").removeClass("has-error");
         if (valid) {
@@ -83,7 +131,114 @@ $(document).ready(function() {
         }
     }
 
+    $('#ccNumber').on('keyup', function(event) {
+        var editKeyCodes = [37, 38, 39, 40];
+        if (editKeyCodes.indexOf(event.keyCode) == -1) { // allows arrow keys
+            var visaRegex = new RegExp("^4");
+            var mcRegex = new RegExp("^5[1-5]");
+            var amexRegexp = new RegExp("^3[47]");
+            var discRegex = new RegExp("^(6011|622(12[6-9]|1[3-9][0-9]|[2-8][0-9]{2}|9[0-1][0-9]|92[0-5]|64[4-9])|65)");
+            if (this.value.match(visaRegex) != null) {
+                $("#ccIcon").removeClass().addClass("fa fa-cc-visa");
+                this.value = getDefaultFormattedCcNumber(this.value);
+                setCvvAmexFormat(false);
+                ccBrand = "VISA";
+            } else if (this.value.match(mcRegex) != null) {
+                $("#ccIcon").removeClass().addClass("fa fa-cc-mastercard");
+                this.value = getDefaultFormattedCcNumber(this.value);
+                setCvvAmexFormat(false);
+                ccBrand = "MC";
+            } else if (this.value.match(amexRegexp) != null) {
+                $("#ccIcon").removeClass().addClass("fa fa-cc-amex");
+                this.value = getAmexFormattedCcNumber(this.value);
+                setCvvAmexFormat(true);
+                ccBrand = "AMEX";
+            } else if (this.value.match(discRegex) != null) {
+                $("#ccIcon").removeClass().addClass("fa fa-cc-discover");
+                this.value = getDefaultFormattedCcNumber(this.value);
+                setCvvAmexFormat(false);
+                ccBrand = "DISC";
+            } else {
+                $("#ccIcon").removeClass().addClass("fa fa-credit-card-alt");
+                this.value = getDefaultFormattedCcNumber(this.value);
+                setCvvAmexFormat(false);
+                ccBrand = "-1";
+            }
+        }
+    });
 
+    function setCvvAmexFormat(amexFormat) {
+        if (amexFormat) {
+            $("#ccCvv").attr('placeholder', '####');
+            $("#ccCvvLabel").text("CID:");
+        } else {
+            $("#ccCvv").attr('placeholder', '###');
+            $("#ccCvvLabel").text("CVV:");
+        }
+    }
+
+    function getDefaultFormattedCcNumber(ccNumInput) {
+        ccNumInput = ccNumInput.replace(/ /g, '');
+        if (ccNumInput.length > 12) {
+            return ccNumInput.replace(/(\d{4})(\d{4})(\d{4})(\d)/, "$1 $2 $3 $4");
+        } else if (ccNumInput.length > 8) {
+            return ccNumInput.replace(/(\d{4})(\d{4})(\d)/, "$1 $2 $3");
+        } else if (ccNumInput.length > 4) {
+            return ccNumInput.replace(/(\d{4})(\d)/, "$1 $2");
+        } else return ccNumInput;
+    }
+
+    function getAmexFormattedCcNumber(ccNumInput) {
+        ccNumInput = ccNumInput.replace(/ /g, '');
+        if (ccNumInput.length > 10) {
+            return ccNumInput.replace(/(\d{4})(\d{6})(\d)/, "$1 $2 $3");
+        } else if (ccNumInput.length > 4) {
+            return ccNumInput.replace(/(\d{4})(\d)/, "$1 $2");
+        } else return ccNumInput;
+    }
+
+    // TODO: Validate exp date
+
+    function validatePaymentPage() {
+        var valid = true;
+        var cvvLength;
+        var ccNumLength;
+        if (ccBrand == "AMEX") {
+            cvvLength = 4;
+            ccNumLength = 15 + 2;
+        } else {
+            cvvLength = 3;
+            ccNumLength = 16 + 3;
+        }
+        if (document.getElementById("ccNumber").value.substring(0, 1) == "3") {
+            cvvLength = 4;
+            ccNumLength = 15 + 2;
+        }
+        if (ccBrand == "-1") {
+            $("#ccNumberGroup").addClass("has-error");
+            valid = false;
+        } else $("#ccNumberGroup").removeClass("has-error");
+        if (document.getElementById("ccName").value.length < 1) {
+            $("#ccNameGroup").addClass("has-error");
+            valid = false;
+        } else $("#ccNameGroup").removeClass("has-error");
+        if (document.getElementById("ccNumber").value.length != ccNumLength || ccBrand == "-1") {
+            $("#ccNumberGroup").addClass("has-error");
+            valid = false;
+        } else $("#ccNumberGroup").removeClass("has-error");
+        if (document.getElementById("ccCvv").value.length != cvvLength) {
+            $("#ccCvvGroup").addClass("has-error");
+            valid = false;
+        } else $("#ccCvvGroup").removeClass("has-error");
+        if (document.getElementById("ccExp").value.length < 4) {
+            $("#ccExpGroup").addClass("has-error");
+            valid = false;
+        } else $("#ccExpGroup").removeClass("has-error")
+        if (valid) {
+            paymentPageDone = true;
+            reviewPage();
+        }
+    }
 
     function billingPage() {
         $("#billing-address-form").show();
@@ -181,9 +336,9 @@ $(document).ready(function() {
         document.getElementById("review-shipping-address").innerHTML = reviewshippingSection;
         var lastDigits = "-1";
         if (ccBrand == "AMEX") {
-            lastDigits = ccNumber.substring(9, 14);
+            lastDigits = ccNumber.replace(/ /g, '').substring(9);
         } else {
-            lastDigits = ccNumber.substring(11, 15);
+            lastDigits = ccNumber.replace(/ /g, '').substring(12);
         }
         document.getElementById("review-payment-details").innerHTML = "Name on card: " + ccName + "<br />" +
             ccBrand + " Ending in " + lastDigits + "<br />Expires " + ccExp + "<br/>";
@@ -212,6 +367,7 @@ $(document).ready(function() {
             $("#shippingPhone").val("").prop("disabled", false);
         }
     });
+
     billingPage();
 
     $("#next-shipping").click(function() {
@@ -251,7 +407,5 @@ $(document).ready(function() {
     $("#review-tab").click(function() {
         reviewPage();
     });
-
-
 
 });

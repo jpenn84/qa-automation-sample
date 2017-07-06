@@ -1,0 +1,26 @@
+.required::before {
+    font-weight: bolder;
+    color: red;
+    content: "* ";
+}
+
+.old-price {
+    text-align: right;
+    text-decoration: line-through;
+}
+
+.new-price {
+    font-weight: bold;
+    text-align: right;
+}
+
+.total-line span {
+    border-top: 1px solid #333;
+    font-weight: bolder;
+}
+
+.caption::after {
+    clear: both;
+    content: "";
+    display: block;
+}
