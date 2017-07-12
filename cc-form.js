@@ -70,6 +70,9 @@ return emailReg.test(email); }
         if (valid) {
             billingPageDone = true;
             shippingPage();
+            $("#billing-error-message").removeClass().addClass("bg-danger hidden");
+        } else {
+            $("#billing-error-message").removeClass("hidden");
         }
     }
 
@@ -128,6 +131,9 @@ return emailReg.test(email); }
         if (valid) {
             shippingPageDone = true;
             paymentPage();
+            $("#shipping-error-message").removeClass().addClass("bg-danger hidden");
+        } else {
+            $("#shipping-error-message").removeClass("hidden");
         }
     }
 
@@ -237,6 +243,9 @@ return emailReg.test(email); }
         if (valid) {
             paymentPageDone = true;
             reviewPage();
+            $("#payment-error-message").removeClass().addClass("bg-danger hidden");
+        } else {
+            $("#payment-error-message").removeClass("hidden");
         }
     }
 
@@ -355,6 +364,7 @@ return emailReg.test(email); }
             $("#shippingState").val($("#billingState").val()).prop("disabled", true);
             $("#shippingZip").val($("#billingZip").val()).prop("disabled", true);
             $("#shippingPhone").val($("#billingPhone").val()).prop("disabled", true);
+            $("#shipping-error-message").removeClass().addClass("bg-danger hidden");
         } else {
             $("#shippingFirstName").val("").prop("disabled", false);
             $("#shippingMiddleName").val("").prop("disabled", false);
@@ -365,6 +375,7 @@ return emailReg.test(email); }
             $("#shippingState").val("").prop("disabled", false);
             $("#shippingZip").val("").prop("disabled", false);
             $("#shippingPhone").val("").prop("disabled", false);
+            $("#shipping-error-message").removeClass("hidden");
         }
     });
 
