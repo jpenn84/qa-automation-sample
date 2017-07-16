@@ -441,19 +441,19 @@ $(document).ready(function() {
     });
 
     $("#billing-tab").click(function() {
-        billingPage();
+        if (!document.getElementById("billing-tab").classList.contains("disabled")) billingPage();
     });
 
     $("#shipping-tab").click(function() {
-        shippingPage();
+        if (!document.getElementById("shipping-tab").classList.contains("disabled")) shippingPage();
     });
 
     $("#payment-tab").click(function() {
-        paymentPage();
+        if (!document.getElementById("payment-tab").classList.contains("disabled")) paymentPage();
     });
 
     $("#review-tab").click(function() {
-        reviewPage();
+        if (!document.getElementById("review-tab").classList.contains("disabled")) reviewPage();
     });
 
 });
