@@ -170,6 +170,15 @@ $(document).ready(function() {
         }
     });
 
+    $("#ccExp").keyup(function() {
+        var exp = this.value.replace(/\D/g, '')
+        if (exp.length > 2) {
+            $("#ccExp").val(exp.replace(/(\d{2})(\d)/, "$1/$2"));
+        } else {
+            $("#ccExp").val(exp);
+        }
+    });
+
     function setCvvAmexFormat(amexFormat) {
         if (amexFormat) {
             $("#ccCvv").attr('placeholder', '####');
@@ -337,7 +346,7 @@ $(document).ready(function() {
             lastDigits = ccNumber.replace(/ /g, '').substring(12);
         }
         document.getElementById(page + "-payment-details").innerHTML = "Name on card: " + ccName + "<br />" +
-            ccBrand + " Ending in " + lastDigits + "<br />Expires " + ccExp + "<br/>";
+            ccBrand + " Ending in " + lastDigits + "<br />Expires " + ccExp + "<br />" + "<br />";
     }
 
     function billingPage() {
