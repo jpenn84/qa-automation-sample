@@ -334,6 +334,7 @@ $(document).ready(function() {
         else $("#order-tab").removeClass("active");
         if (!paymentPageDone) $("#review-tab").addClass("disabled");
         else $("#review-tab").removeClass("active");
+        $("#receipt-form").hide();
     }
 
     function shippingPage() {
@@ -406,7 +407,7 @@ $(document).ready(function() {
             $("#shippingState").val("").prop("disabled", false);
             $("#shippingZip").val("").prop("disabled", false);
             $("#shippingPhone").val("").prop("disabled", false);
-            $("#shipping-error-message").removeClass("hidden");
+            $("#shipping-error-message").addClass("hidden");
         }
     });
 
