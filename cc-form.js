@@ -23,15 +23,6 @@ $(document).ready(function() {
         }
     });
 
-
-    /*
-
-    function is_email(email){      
-var emailReg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-return emailReg.test(email); } 
-
-    */
-
     function validateBillingPage() {
         var emailReg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
         var valid = true;
@@ -203,7 +194,24 @@ return emailReg.test(email); }
         } else return ccNumInput;
     }
 
-    // TODO: Validate exp date
+    function validateExpDate() {
+        var date = new Date();
+        var expDate = document.getElementById("ccExp").value.replace(/ /g, '');
+        var expMonth = parseInt(expDate.substring(0, 2));
+        var expYear = parseInt(expDate.substring(2));
+
+        if (expDate.value.length < 4) {
+            return false
+        } else if (expMonth < 1 || expMonth > 12) {
+            return false
+        } else if (expYear == parseInt(date.getFullYear().toString().substring(2)) && expMonth < parseInt(date.getMonth()) + 1) {
+            return false
+        } else if (expYear < parseInt(date.getFullYear().toString().substring(2))) {
+            return false
+        } else {
+            return true;
+        }
+    }
 
     function validatePaymentPage() {
         var valid = true;
@@ -236,11 +244,12 @@ return emailReg.test(email); }
             $("#ccCvvGroup").addClass("has-error");
             valid = false;
         } else $("#ccCvvGroup").removeClass("has-error");
-        if (document.getElementById("ccExp").value.length < 4) {
+        if (validateExpDate()) {
+            $("#ccExpGroup").removeClass("has-error");
+        } else {
             $("#ccExpGroup").addClass("has-error");
-            valid = false;
-        } else $("#ccExpGroup").removeClass("has-error")
-        if (valid) {
+        }
+        if (valid && validateExpDate()) {
             paymentPageDone = true;
             reviewPage();
             $("#payment-error-message").removeClass().addClass("bg-danger hidden");
