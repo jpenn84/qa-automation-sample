@@ -150,7 +150,7 @@ $(document).ready(function() {
                 $("#ccIcon").removeClass().addClass("fa fa-cc-mastercard");
                 this.value = getDefaultFormattedCcNumber(this.value);
                 setCvvAmexFormat(false);
-                ccBrand = "MC";
+                ccBrand = "MASTERCARD";
             } else if (this.value.match(amexRegexp) != null) {
                 $("#ccIcon").removeClass().addClass("fa fa-cc-amex");
                 this.value = getAmexFormattedCcNumber(this.value);
@@ -160,7 +160,7 @@ $(document).ready(function() {
                 $("#ccIcon").removeClass().addClass("fa fa-cc-discover");
                 this.value = getDefaultFormattedCcNumber(this.value);
                 setCvvAmexFormat(false);
-                ccBrand = "DISC";
+                ccBrand = "DISCOVER";
             } else {
                 $("#ccIcon").removeClass().addClass("fa fa-credit-card-alt");
                 this.value = getDefaultFormattedCcNumber(this.value);
@@ -346,7 +346,11 @@ $(document).ready(function() {
             lastDigits = ccNumber.replace(/ /g, '').substring(12);
         }
         document.getElementById(page + "-payment-details").innerHTML = "Name on card: " + ccName + "<br />" +
-            ccBrand + " Ending in " + lastDigits + "<br />Expires " + ccExp + "<br />" + "<br />";
+            ccBrandIconElement(ccBrand) + " Ending in " + lastDigits + "<br />Expires " + ccExp + "<br />" + "<br />";
+    }
+
+    function ccBrandIconElement(brand) {
+        return "<i class=\"fa fa-cc-" + brand.toLowerCase() + "\"></i>";
     }
 
     function billingPage() {
