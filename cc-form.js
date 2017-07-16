@@ -8,6 +8,12 @@ $(document).ready(function() {
         'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY', 'AE', 'AA', 'AP'
     ];
 
+    var billingFirstName, billingMiddleName, billingLastName, billingAddressLine1, billingAddressLine2,
+        billingCity, billingState, billingZip, email, billingPhone;
+    var shippingFirstName, shippingMiddleName, shippingLastName, shippingAddressLine1, shippingAddressLine2,
+        shippingCity, shippingState, shippingZip, shippingPhone;
+    var ccName, ccNumber, ccCvv, ccExp;
+
     $("#billingZip").keyup(function() {
         $("#billingZip").val(this.value.match(/[0-9]*/));
     });
@@ -200,7 +206,7 @@ $(document).ready(function() {
         var expMonth = parseInt(expDate.substring(0, 2));
         var expYear = parseInt(expDate.substring(2));
 
-        if (expDate.value.length < 4) {
+        if (expDate.length < 4) {
             return false
         } else if (expMonth < 1 || expMonth > 12) {
             return false
@@ -258,6 +264,62 @@ $(document).ready(function() {
         }
     }
 
+    function setReviewReceiptValues() {
+        billingFirstName = document.getElementById("billingFirstName").value;
+        billingMiddleName = document.getElementById("billingMiddleName").value;
+        billingLastName = document.getElementById("billingLastName").value;
+        billingAddressLine1 = document.getElementById("billingAddressLine1").value;
+        billingAddressLine2 = document.getElementById("billingAddressLine2").value;
+        billingCity = document.getElementById("billingCity").value;
+        billingState = document.getElementById("billingState").value;
+        billingZip = document.getElementById("billingZip").value;
+        email = document.getElementById("email").value;
+        billingPhone = document.getElementById("billingPhone").value;
+
+        shippingFirstName = document.getElementById("shippingFirstName").value;
+        shippingMiddleName = document.getElementById("shippingMiddleName").value;
+        shippingLastName = document.getElementById("shippingLastName").value;
+        shippingAddressLine1 = document.getElementById("shippingAddressLine1").value;
+        shippingAddressLine2 = document.getElementById("shippingAddressLine2").value;
+        shippingCity = document.getElementById("shippingCity").value;
+        shippingState = document.getElementById("shippingState").value;
+        shippingZip = document.getElementById("shippingZip").value;
+        shippingPhone = document.getElementById("shippingPhone").value;
+
+        ccName = document.getElementById("ccName").value;
+        ccNumber = document.getElementById("ccNumber").value;
+        ccCvv = document.getElementById("ccCvv").value;
+        ccExp = document.getElementById("ccExp").value;
+    }
+
+    function fillValues(page) {
+        if (billingMiddleName.length > 0) var reviewBillingName = billingFirstName + " " + billingMiddleName + " " + billingLastName;
+        else var reviewBillingName = billingFirstName + " " + billingLastName;
+        if (billingAddressLine2.length > 0) var reviewBillingAddress = billingAddressLine1 + "<br />" + billingAddressLine2;
+        else var reviewBillingAddress = billingAddressLine1;
+        var reviewCityStZip = billingCity + ", " + billingState + " " + billingZip;
+        var reviewBillingSection = reviewBillingName + "<br />" + reviewBillingAddress + "<br />" +
+            reviewCityStZip + "<br />" + billingPhone + "<br />" + email;
+        document.getElementById(page + "-billing-address").innerHTML = reviewBillingSection
+
+        if (shippingMiddleName.length > 0) var reviewshippingName = shippingFirstName + " " + shippingMiddleName + " " + shippingLastName;
+        else var reviewshippingName = shippingFirstName + " " + shippingLastName;
+        if (shippingAddressLine2.length > 0) var reviewshippingAddress = shippingAddressLine1 + "<br />" + shippingAddressLine2;
+        else var reviewshippingAddress = shippingAddressLine1;
+        var reviewCityStZip = shippingCity + ", " + shippingState + " " + shippingZip;
+        var reviewshippingSection = reviewshippingName + "<br />" + reviewshippingAddress + "<br />" +
+            reviewCityStZip + "<br />" + shippingPhone;
+        document.getElementById(page + "-shipping-address").innerHTML = reviewshippingSection;
+        var lastDigits = "-1";
+        if (ccBrand == "AMEX") {
+            lastDigits = ccNumber.replace(/ /g, '').substring(9);
+        } else {
+            lastDigits = ccNumber.replace(/ /g, '').substring(12);
+        }
+        document.getElementById(page + "-payment-details").innerHTML = "Name on card: " + ccName + "<br />" +
+            ccBrand + " Ending in " + lastDigits + "<br />Expires " + ccExp + "<br/>";
+    }
+
     function billingPage() {
         $("#billing-address-form").show();
         $("#shipping-address-form").hide();
@@ -308,58 +370,18 @@ $(document).ready(function() {
         $("#shipping-tab").removeClass("active");
         $("#payment-tab").removeClass("active");
         $("#review-tab").removeClass("disabled").addClass("active");
+        setReviewReceiptValues();
+        fillValues("review");
+    }
 
-        var billingFirstName = document.getElementById("billingFirstName").value;
-        var billingMiddleName = document.getElementById("billingMiddleName").value;
-        var billingLastName = document.getElementById("billingLastName").value;
-        var billingAddressLine1 = document.getElementById("billingAddressLine1").value;
-        var billingAddressLine2 = document.getElementById("billingAddressLine2").value;
-        var billingCity = document.getElementById("billingCity").value;
-        var billingState = document.getElementById("billingState").value;
-        var billingZip = document.getElementById("billingZip").value;
-        var email = document.getElementById("email").value;
-        var billingPhone = document.getElementById("billingPhone").value;
-
-        var shippingFirstName = document.getElementById("shippingFirstName").value;
-        var shippingMiddleName = document.getElementById("shippingMiddleName").value;
-        var shippingLastName = document.getElementById("shippingLastName").value;
-        var shippingAddressLine1 = document.getElementById("shippingAddressLine1").value;
-        var shippingAddressLine2 = document.getElementById("shippingAddressLine2").value;
-        var shippingCity = document.getElementById("shippingCity").value;
-        var shippingState = document.getElementById("shippingState").value;
-        var shippingZip = document.getElementById("shippingZip").value;
-        var shippingPhone = document.getElementById("shippingPhone").value;
-
-        var ccName = document.getElementById("ccName").value;
-        var ccNumber = document.getElementById("ccNumber").value;
-        var ccCvv = document.getElementById("ccCvv").value;
-        var ccExp = document.getElementById("ccExp").value;
-
-        if (billingMiddleName.length > 0) var reviewBillingName = billingFirstName + " " + billingMiddleName + " " + billingLastName;
-        else var reviewBillingName = billingFirstName + " " + billingLastName;
-        if (billingAddressLine2.length > 0) var reviewBillingAddress = billingAddressLine1 + "<br />" + billingAddressLine2;
-        else var reviewBillingAddress = billingAddressLine1;
-        var reviewCityStZip = billingCity + ", " + billingState + " " + billingZip;
-        var reviewBillingSection = reviewBillingName + "<br />" + reviewBillingAddress + "<br />" +
-            reviewCityStZip + "<br />" + billingPhone + "<br />" + email;
-        document.getElementById("review-billing-address").innerHTML = reviewBillingSection
-
-        if (shippingMiddleName.length > 0) var reviewshippingName = shippingFirstName + " " + shippingMiddleName + " " + shippingLastName;
-        else var reviewshippingName = shippingFirstName + " " + shippingLastName;
-        if (shippingAddressLine2.length > 0) var reviewshippingAddress = shippingAddressLine1 + "<br />" + shippingAddressLine2;
-        else var reviewshippingAddress = shippingAddressLine1;
-        var reviewCityStZip = shippingCity + ", " + shippingState + " " + shippingZip;
-        var reviewshippingSection = reviewshippingName + "<br />" + reviewshippingAddress + "<br />" +
-            reviewCityStZip + "<br />" + shippingPhone;
-        document.getElementById("review-shipping-address").innerHTML = reviewshippingSection;
-        var lastDigits = "-1";
-        if (ccBrand == "AMEX") {
-            lastDigits = ccNumber.replace(/ /g, '').substring(9);
-        } else {
-            lastDigits = ccNumber.replace(/ /g, '').substring(12);
-        }
-        document.getElementById("review-payment-details").innerHTML = "Name on card: " + ccName + "<br />" +
-            ccBrand + " Ending in " + lastDigits + "<br />Expires " + ccExp + "<br/>";
+    function receiptPage() {
+        $("#checkout-nav").hide();
+        $("#billing-address-form").hide();
+        $("#shipping-address-form").hide();
+        $("#payment-method-form").hide();
+        $("#review-form").hide();
+        $("#receipt-form").show();
+        fillValues("receipt");
     }
 
     $("#sameAsBilling").click(function() {
@@ -413,6 +435,10 @@ $(document).ready(function() {
         paymentPage();
     });
 
+    $("#next-place-order").click(function() {
+        receiptPage();
+    });
+
     $("#billing-tab").click(function() {
         billingPage();
     });
@@ -424,6 +450,7 @@ $(document).ready(function() {
     $("#payment-tab").click(function() {
         paymentPage();
     });
+
     $("#review-tab").click(function() {
         reviewPage();
     });

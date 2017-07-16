@@ -25,7 +25,7 @@
     <div class="container">
         <form>
             <div class="col-md-6">
-                <nav class="navbar navbar-default">
+                <nav class="navbar navbar-default" id="checkout-nav">
                     <div class="container-fluid">
                         <div class="navbar-header">
                             <a class="navbar-brand" href="#">Checkout</a>
@@ -257,8 +257,29 @@
                     <div></div>
                 </div>
                 <!-- Receipt Form -->
-                <div>
-
+                <div id="receipt-form">
+                    <div class="col-md-12">
+                        <h2>Thank you for your order!</h2>
+                        <div class="col-md-6">
+                            <h3>Billing Address</h3>
+                            <span id="receipt-billing-address"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>Shipping Address</h3>
+                            <span id="receipt-shipping-address"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <h3>Billing Details</h3>
+                            <span id="receipt-payment-details"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>Shipping Information</h3>
+                            <p>Please allow up to 2 business days for your order to ship. Once your order ships, please allow 2-3 business days for delivery</p>
+                            <p>We will email you once your order has been shipped.</p>
+                        </div>
+                    </div>
                 </div>
 
             </div>
