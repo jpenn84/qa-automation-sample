@@ -470,6 +470,7 @@ $(document).ready(function() {
     });
 
     $("#next-place-order").click(function() {
+        mockAsyncWaitModal();
         receiptPage();
     });
 
@@ -488,5 +489,19 @@ $(document).ready(function() {
     $("#review-tab").click(function() {
         if (!document.getElementById("review-tab").classList.contains("disabled")) reviewPage();
     });
+
+    function mockAsyncWaitModal() {
+        $("#myModal").modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+
+        // Mock back-end behavior - Wait for 1-10 seconds before proceeding
+        var timeout = Math.floor((Math.random() * 10000) + 1000);
+        console.log(timeout);
+        setTimeout(function(){
+                $("#myModal").modal('hide');
+        }, timeout);
+    }
 
 });

@@ -29,3 +29,12 @@
     border: 2px solid #333;
     padding: 2px;
 }
+
+.modal-content {
+    text-align: center;
+}
+
+.fa.fa-circle-o-notch.fa-spin {
+    font-size: 128px;
+    margin: 50px;
+}
