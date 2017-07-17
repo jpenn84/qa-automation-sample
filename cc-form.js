@@ -498,7 +498,6 @@ $(document).ready(function() {
 
         // Mock back-end behavior - Wait for 1-10 seconds before proceeding
         var timeout = Math.floor((Math.random() * 10000) + 1000);
-        console.log(timeout);
         setTimeout(function(){
                 $("#myModal").modal('hide');
         }, timeout);
