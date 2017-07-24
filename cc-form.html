@@ -24,12 +24,29 @@
 
     <div class="container">
 
-        <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal fade" id="mockApiWaitModal" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
-                    <span><i class='fa fa-circle-o-notch fa-spin'></i><span>
+                        <span><i class='fa fa-circle-o-notch fa-spin'></i><span>
                     <h2>Placing your order...</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="cardDeclinedModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Card Declined</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>We could not process your error because your payment card has been declined</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" id="declinedModalPaymentPageButton">Go to payment page</button>
                     </div>
                 </div>
             </div>
@@ -54,7 +71,7 @@
                 <div id="billing-address-form">
                     <div class="col-md-12">
                         <h2>Billing Address</h2>
-                        <p id="billing-error-message" class="bg-danger hidden">
+                        <p id="billing-error-message" class="bg-danger hidden page-error">
                             <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Please correct errors in the red boxes below
                         </p>
                     </div>
@@ -126,7 +143,7 @@
                 <div id="shipping-address-form">
                     <div class="col-md-12">
                         <h2>Shipping Address</h2>
-                        <p id="shipping-error-message" class="bg-danger hidden">
+                        <p id="shipping-error-message" class="bg-danger hidden page-error">
                             <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Please correct errors in the red boxes below
                         </p>
                     </div>
@@ -202,7 +219,7 @@
                 <div id="payment-method-form">
                     <div class="col-md-12">
                         <h2>Payment Method</h2>
-                        <p id="payment-error-message" class="bg-danger hidden">
+                        <p id="payment-error-message" class="bg-danger hidden page-error">
                             <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Please correct errors in the red boxes below
                         </p>
                     </div>
@@ -218,112 +235,112 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" id="ccNumber" placeholder="4111 1111 1111 1111" required />
                                 <span class="input-group-addon"><span id="ccIcon" class="fa fa-credit-card-alt"></span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group required" id="ccCvvGroup">
-                            <label for="ccCvv" id="ccCvvLabel">CVV:</label>
-                            <input type="text" class="form-control" id="ccCvv" placeholder="###">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group required" id="ccExpGroup">
-                            <label for="ccExp">Exp Date:</label>
-                            <input type="text" class="form-control" id="ccExp" placeholder="MMYY">
-                        </div>
-                    </div>
-                    <div class="col-md-12"></div>
-                    <div class="col-md-6">
-                        <button type="button" id="prev-shipping" class="btn">Previous: Shipping Address</button>
-                    </div>
-                    <div class="col-md-6">
-                        <button type="button" id="next-review" class="btn btn-primary pull-right">Next: Review</button>
                     </div>
                 </div>
-                <!-- Review form -->
-                <div id="review-form">
-                    <div class="col-md-12">
-                        <h2>Review your order</h2>
-                        <div class="col-md-6">
-                            <h3>Billing Address</h3>
-                            <span id="review-billing-address"></span>
-                        </div>
-                        <div class="col-md-6">
-                            <h3>Shipping Address</h3>
-                            <span id="review-shipping-address"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="col-md-6">
-                            <h3>Billing Details</h3>
-                            <span id="review-payment-details"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <button type="button" id="prev-payment" class="btn">Previous: Payment Method</button>
-                    </div>
-                    <div class="col-md-6">
-                        <button type="button" id="next-place-order" class="btn btn-primary pull-right">Next: Place Order</button>
-                    </div>
-                    <div></div>
-                </div>
-                <!-- Receipt Form -->
-                <div id="receipt-form">
-                    <div class="col-md-12">
-                        <h2>Thank you for your order!</h2>
-                        <div class="col-md-6">
-                            <h3>Billing Address</h3>
-                            <span id="receipt-billing-address"></span>
-                        </div>
-                        <div class="col-md-6">
-                            <h3>Shipping Address</h3>
-                            <span id="receipt-shipping-address"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="col-md-6">
-                            <h3>Billing Details</h3>
-                            <span id="receipt-payment-details"></span>
-                        </div>
-                        <div class="col-md-6">
-                            <h3>Shipping Information</h3>
-                            <p>Please allow up to 2 business days for your order to ship. Once your order ships, please allow 2-3 business days for delivery</p>
-                            <p>We will email you once your order has been shipped.</p>
-                        </div>
-                    </div>
-                </div>
-
             </div>
-
+            <div class="col-md-3">
+                <div class="form-group required" id="ccCvvGroup">
+                    <label for="ccCvv" id="ccCvvLabel">CVV:</label>
+                    <input type="text" class="form-control" id="ccCvv" placeholder="###">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group required" id="ccExpGroup">
+                    <label for="ccExp">Exp Date:</label>
+                    <input type="text" class="form-control" id="ccExp" placeholder="MMYY">
+                </div>
+            </div>
+            <div class="col-md-12"></div>
             <div class="col-md-6">
-                <div class="col-md-12">
-                    <div class="thumbnail">
-                        <img class="product-image" src="rover.jpg" alt="rover" style="width:50%">
-                        <div class="caption">
-                            <div>
-                                <span class="col-sm-6 item-desc">Mars Rover Poster</span>
-                                <span class="col-sm-3 old-price">$ 14.99</span>
-                                <span class="col-sm-3 new-price">99 ¢</span>
-                            </div>
-                            <div>
-                                <span class="col-sm-6 item-desc">Priority Mail</span>
-                                <span class="col-sm-3 old-price">$ 5.95</span>
-                                <span class="col-sm-3 new-price">FREE</span>
-                            </div>
-                            <div class="total-line">
-                                <span class="col-sm-6 item-desc">Total</span>
-                                <span class="col-sm-3 old-price"></span>
-                                <span class="col-sm-3 new-price">99 ¢</span>
-                            </div>
-                        </div>
-                    </div>
-
+                <button type="button" id="prev-shipping" class="btn">Previous: Shipping Address</button>
+            </div>
+            <div class="col-md-6">
+                <button type="button" id="next-review" class="btn btn-primary pull-right">Next: Review</button>
+            </div>
+        </div>
+        <!-- Review form -->
+        <div id="review-form">
+            <div class="col-md-12">
+                <h2>Review your order</h2>
+                <div class="col-md-6">
+                    <h3>Billing Address</h3>
+                    <span id="review-billing-address"></span>
                 </div>
+                <div class="col-md-6">
+                    <h3>Shipping Address</h3>
+                    <span id="review-shipping-address"></span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <h3>Billing Details</h3>
+                    <span id="review-payment-details"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <button type="button" id="prev-payment" class="btn">Previous: Payment Method</button>
+            </div>
+            <div class="col-md-6">
+                <button type="button" id="next-place-order" class="btn btn-primary pull-right">Next: Place Order</button>
+            </div>
+            <div></div>
+        </div>
+        <!-- Receipt Form -->
+        <div id="receipt-form">
+            <div class="col-md-12">
+                <h2>Thank you for your order!</h2>
+                <div class="col-md-6">
+                    <h3>Billing Address</h3>
+                    <span id="receipt-billing-address"></span>
+                </div>
+                <div class="col-md-6">
+                    <h3>Shipping Address</h3>
+                    <span id="receipt-shipping-address"></span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <h3>Billing Details</h3>
+                    <span id="receipt-payment-details"></span>
+                </div>
+                <div class="col-md-6">
+                    <h3>Shipping Information</h3>
+                    <p>Please allow up to 2 business days for your order to ship. Once your order ships, please allow 2-3 business days for delivery</p>
+                    <p>We will email you once your order has been shipped.</p>
+                </div>
+            </div>
+        </div>
 
+    </div>
+
+    <div class="col-md-6">
+        <div class="col-md-12">
+            <div class="thumbnail">
+                <img class="product-image" src="rover.jpg" alt="rover" style="width:50%">
+                <div class="caption">
+                    <div>
+                        <span class="col-sm-6 item-desc">Mars Rover Poster</span>
+                        <span class="col-sm-3 old-price">$ 14.99</span>
+                        <span class="col-sm-3 new-price">99 ¢</span>
+                    </div>
+                    <div>
+                        <span class="col-sm-6 item-desc">Priority Mail</span>
+                        <span class="col-sm-3 old-price">$ 5.95</span>
+                        <span class="col-sm-3 new-price">FREE</span>
+                    </div>
+                    <div class="total-line">
+                        <span class="col-sm-6 item-desc">Total</span>
+                        <span class="col-sm-3 old-price"></span>
+                        <span class="col-sm-3 new-price">99 ¢</span>
+                    </div>
+                </div>
             </div>
 
-        </form>
+        </div>
+
+    </div>
+
+    </form>
     </div>
 </body>
 

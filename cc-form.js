@@ -67,7 +67,7 @@ $(document).ready(function() {
         if (valid) {
             billingPageDone = true;
             shippingPage();
-            $("#billing-error-message").removeClass().addClass("bg-danger hidden");
+            $("#billing-error-message").removeClass().addClass("bg-danger hidden page-error");
         } else {
             $("#billing-error-message").removeClass("hidden");
         }
@@ -128,7 +128,7 @@ $(document).ready(function() {
         if (valid) {
             shippingPageDone = true;
             paymentPage();
-            $("#shipping-error-message").removeClass().addClass("bg-danger hidden");
+            $("#shipping-error-message").removeClass().addClass("bg-danger hidden page-error");
         } else {
             $("#shipping-error-message").removeClass("hidden");
         }
@@ -240,12 +240,10 @@ $(document).ready(function() {
                 bit = 1,
                 sum = 0,
                 val;
-
             while (len) {
                 val = parseInt(ccNum.charAt(--len), 10);
                 sum += (bit ^= 1) ? arr[val] : val;
             }
-
             return sum && sum % 10 === 0;
         };
     }([0, 2, 4, 6, 8, 1, 3, 5, 7, 9]));
@@ -287,10 +285,20 @@ $(document).ready(function() {
         if (valid && validateExpDate()) {
             paymentPageDone = true;
             reviewPage();
-            $("#payment-error-message").removeClass().addClass("bg-danger hidden");
+            $("#payment-error-message").removeClass().addClass("bg-danger hidden page-error");
         } else {
             $("#payment-error-message").removeClass("hidden");
         }
+    }
+
+    function validateCardCharge() {
+        // 4000000000000101
+        if (ccNumber.replace(/ /g, '') == "4000000000000101") {
+            $("#cardDeclinedModal").modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+        } else { receiptPage(); }
     }
 
     function setReviewReceiptValues() {
@@ -429,7 +437,7 @@ $(document).ready(function() {
             $("#shippingState").val($("#billingState").val()).prop("disabled", true);
             $("#shippingZip").val($("#billingZip").val()).prop("disabled", true);
             $("#shippingPhone").val($("#billingPhone").val()).prop("disabled", true);
-            $("#shipping-error-message").removeClass().addClass("bg-danger hidden");
+            $("#shipping-error-message").removeClass().addClass("bg-danger hidden page-error");
         } else {
             $("#shippingFirstName").val("").prop("disabled", false);
             $("#shippingMiddleName").val("").prop("disabled", false);
@@ -440,7 +448,7 @@ $(document).ready(function() {
             $("#shippingState").val("").prop("disabled", false);
             $("#shippingZip").val("").prop("disabled", false);
             $("#shippingPhone").val("").prop("disabled", false);
-            $("#shipping-error-message").addClass("hidden");
+            $("#shipping-error-message").removeClass().addClass("bg-danger hidden page-error");
         }
     });
 
@@ -471,6 +479,7 @@ $(document).ready(function() {
 
     $("#next-place-order").click(function() {
         mockAsyncWaitModal();
+        validateCardCharge();
         receiptPage();
     });
 
@@ -490,16 +499,21 @@ $(document).ready(function() {
         if (!document.getElementById("review-tab").classList.contains("disabled")) reviewPage();
     });
 
+    $("#declinedModalPaymentPageButton").click(function() {
+        billingPage();
+        $("#review-tab").addClass("disabled").removeClass("active");
+    });
+
     function mockAsyncWaitModal() {
-        $("#myModal").modal({
+        $("#mockApiWaitModal").modal({
             backdrop: 'static',
             keyboard: false
         });
 
         // Mock back-end behavior - Wait for 1-10 seconds before proceeding
         var timeout = Math.floor((Math.random() * 10000) + 1000);
-        setTimeout(function(){
-                $("#myModal").modal('hide');
+        setTimeout(function() {
+            $("#mockApiWaitModal").modal('hide');
         }, timeout);
     }
 

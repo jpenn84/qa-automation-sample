@@ -14,7 +14,7 @@ Feature: billing address page
     And the user enters <phone> in the Phone Number field
     And the user clicks the Next: Shipping Address button
     Then the user is navigated to the shipping address form
-    And the billing address form is no longer visible
+    And the "billing address" form is no longer visible
 
     Examples:
       | fName | mName | lName | addr1                  | addr2       | city           | st | zip   | email               | phone      |

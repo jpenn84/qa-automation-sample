@@ -1,7 +1,7 @@
 Feature: shipping address page
 
   Scenario: Happy path
-    Given the user has filled valid billing address data and has navigated to the shipping address page
+    Given the user has entered valid billing address data and has navigated to the shipping address page
     When the user enters <fName> in the First Name field
     And the user enters <mName> in the First Name field
     And the user enters <lName> in the Last Name field
@@ -13,7 +13,7 @@ Feature: shipping address page
     And the user enters <phone> in the Phone Number field
     And the user clicks the Next: Shipping Address button
     Then the user is navigated to the shipping address form
-    And the billing address form is no longer visible
+    And the "shipping address" form is no longer visible
 
     Examples:
       | fName | mName | lName | addr1                  | addr2       | city           | st | zip   | phone      |
@@ -36,13 +36,13 @@ Feature: shipping address page
       | John  |       | Smith  | General Delivery      |             | Palau          | PW | 96939 | 6805552222 |
 
   Scenario: Check shipping address same as billing
-    Given the user has filled valid billing address data and has navigated to the shipping address page
+    Given the user has entered valid billing address data and has navigated to the shipping address page
     When the user checks the Same as Billing address checkbox
     Then the information from the billing page fields is copied to the shipping page
     And the fields on the shipping page are disabled
 
   Scenario: Uncheck shipping address same as billing
-    Given the user has filled valid billing address data and has navigated to the shipping address page
+    Given the user has entered valid billing address data and has navigated to the shipping address page
     When the user checks the Same as Billing address checkbox
     # TUT: Avoind using "keywords in step sentences"
     And the user subsequently unchecks the Same as Billing address checkbox
@@ -50,7 +50,7 @@ Feature: shipping address page
     And the fields on the shipping page are enabled
 
   Scenario: State code formatting
-    Given the user has filled valid billing address data and has navigated to the shipping address page
+    Given the user has entered valid billing address data and has navigated to the shipping address page
     When the user enters <st> in the State field
     Then the the input for "state" is formatted to <st-formatted>
 
@@ -60,7 +60,7 @@ Feature: shipping address page
       | Wv | Wv           |
 
   Scenario: Zip code formatting
-    Given the user has filled valid billing address data and has navigated to the shipping address page
+    Given the user has entered valid billing address data and has navigated to the shipping address page
     When the user enters <zip> in the State field
     Then the the input for "zip" is formatted to <zip-formatted>
 
@@ -72,7 +72,7 @@ Feature: shipping address page
       | ABC45 | 45            |
 
   Scenario: Phone number formatting
-    Given the user has filled valid billing address data and has navigated to the shipping address page
+    Given the user has entered valid billing address data and has navigated to the shipping address page
     When the user enters <phone> in the State field
     Then the the input for "phone" is formatted to <phone-formatted>
 
@@ -88,21 +88,21 @@ Feature: shipping address page
       | 123ABC456      | (123) 456       |
 
   Scenario: Missing fields
-    Given the user has filled valid billing address data and has navigated to the shipping address page
+    Given the user has entered valid billing address data and has navigated to the shipping address page
     When the user leaves all fields blank
     And the user clicks the Next: Shipping Address button
     Then the user receives a page error message
     And the user receives field errors for all required fields
 
   Scenario: Invalid state code
-    Given the user has filled valid billing address data and has navigated to the shipping address page
+    Given the user has entered valid billing address data and has navigated to the shipping address page
     When the user enters valid data in all required fields except "state"
     And the user enters <st> in the State field
     Then the user receives a page error message
     And the user receives field errors for the "state" field.
   
   Scenario: Invalid zip code
-    Given the user has filled valid billing address data and has navigated to the shipping address page
+    Given the user has entered valid billing address data and has navigated to the shipping address page
     When the user enters valid data in all required fields except "zip"
     And the user enters <zip> in the State field
     Then the user receives a page error message
@@ -115,7 +115,7 @@ Feature: shipping address page
       | !@#$% |
 
   Scenario: Invalid phone number
-    Given the user has filled valid billing address data and has navigated to the shipping address page
+    Given the user has entered valid billing address data and has navigated to the shipping address page
     When the user enters valid data in all required fields except "phone"
     And the user enters <phone> in the State field
     Then the user receives a page error message
