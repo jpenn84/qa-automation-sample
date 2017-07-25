@@ -292,7 +292,6 @@ $(document).ready(function() {
     }
 
     function validateCardCharge() {
-        // 4000000000000101
         if (ccNumber.replace(/ /g, '') == "4000000000000101") {
             $("#cardDeclinedModal").modal({
                 backdrop: 'static',
@@ -479,8 +478,6 @@ $(document).ready(function() {
 
     $("#next-place-order").click(function() {
         mockAsyncWaitModal();
-        validateCardCharge();
-        receiptPage();
     });
 
     $("#billing-tab").click(function() {
@@ -500,7 +497,8 @@ $(document).ready(function() {
     });
 
     $("#declinedModalPaymentPageButton").click(function() {
-        billingPage();
+        $("#cardDeclinedModal").modal('hide');
+        paymentPage();
         $("#review-tab").addClass("disabled").removeClass("active");
     });
 
@@ -514,6 +512,7 @@ $(document).ready(function() {
         var timeout = Math.floor((Math.random() * 10000) + 1000);
         setTimeout(function() {
             $("#mockApiWaitModal").modal('hide');
+            validateCardCharge();
         }, timeout);
     }
 

@@ -1,14 +1,17 @@
 Feature: payment page
 
-  Scenario: Valid payment details
+  Background:
     Given the user has entered valid billing address data and has navigated to the shipping address page
     And the user has entered "the same" valid shipping address data and has navigated to the payment page
+
+  Scenario: Valid payment details
+    Given the user is on the "payment" page
     When the user enters <card-name>
     And the user enters <card-number>
     And the user enters <exp> date
     And the user enters security <code>
     And the user clicks the Next: Review button
-    Then the user is navigated to the review page
+    Then user will be navigated to the Review Page
     And the "payment" form is no longer visible
 
     Examples:
@@ -22,15 +25,15 @@ Feature: payment page
     # Discover
     | John Smith | 6011111111111117 | 1220 | 123  |
 
-    Scenario: Invalid payment details
-    Given the user has entered valid billing address data and has navigated to the shipping address page
-    And the user has entered "the same" valid shipping address data and has navigated to the payment page
+  Scenario: Invalid payment details
+    Given the user is on the "payment" page
     When the user enters <card-name>
     And the user enters <card-number>
     And the user enters <exp> date
     And the user enters security <code>
     And the user clicks the Next: Review button
-    Then the user receives a page error message
+    Then the user remains on the "payment" page
+    And the user receives a page error message
     And the user receives an error for <field>
 
     Examples:
@@ -60,4 +63,21 @@ Feature: payment page
     # Invalid CID
     | John Smith | 378282246310005  | 1220 | 123  | ccCvv    |
 
-# Card icon test
+  Scenario: Payment Card icons
+    Given the user is on the "payment" page
+    When the user enters <card-number>
+    Then the card icon will change to <card-icon>
+    Examples:
+      | card-number      | card-icon          |
+      | 4242424242424242 | fa-cc-visa         |
+      | 5555555555554444 | fa-cc-mastercard   |
+      | 378282246310005  | fa-cc-amex         |
+      | 6011111111111117 | fa-cc-discover     |
+      | 1234567890123452 | fa-credit-card-alt |
+      | 4242424242424241 | fa-credit-card-alt |
+
+  Scenario: Payment Card icon reset
+    Given the user is on the "payment" page
+    When the user enters <card-number>
+    And the user subsequently deletes the card number
+    Then the card icon will change to "fa-credit-card-alt"

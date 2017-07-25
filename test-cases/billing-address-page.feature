@@ -1,7 +1,7 @@
 Feature: billing address page
 
-  Scenario: Happy path
-    Given the user is on the billing page
+  Scenario: Valid address
+    Given the user is on the "billing address" page
     When the user enters <fName> in the First Name field
     And the user enters <mName> in the First Name field
     And the user enters <lName> in the Last Name field
@@ -37,7 +37,7 @@ Feature: billing address page
       | John  |       | Smith  | General Delivery      |             | Palau          | PW | 96939 | john.smith@mail.com | 6805552222 |
 
   Scenario: State code formatting
-    Given the user is on the billing address page
+    Given the user is on the "billing address" page
     When the user enters <st> in the State field
     Then the the input for "state" is formatted to <st-formatted>
 
@@ -47,7 +47,7 @@ Feature: billing address page
       | Wv | Wv           |
 
   Scenario: Zip code formatting
-    Given the user is on the billing address page
+    Given the user is on the "billing address" page
     When the user enters <zip> in the State field
     Then the the input for "zip" is formatted to <zip-formatted>
 
@@ -59,7 +59,7 @@ Feature: billing address page
       | ABC45 | 45            |
 
   Scenario: Phone number formatting
-    Given the user is on the billing address page
+    Given the user is on the "billing address" page
     When the user enters <phone> in the State field
     Then the the input for "phone" is formatted to <phone-formatted>
 
@@ -78,24 +78,27 @@ Feature: billing address page
       | 1 2 3 4 5 6 7 8 9 0 | (123) 456-7890  |
 
   Scenario: Missing fields
-    Given the user is on the billing address page
+    Given the user is on the "billing address" page
     When the user leaves all fields blank
     And the user clicks the Next: Shipping Address button
-    Then the user receives a page error message
+    Then the user remains on the "billing address" page
+    And the user receives a page error message
     And the user receives field errors for all required fields
 
   Scenario: Invalid state code
-    Given the user is on the billing address page
+    Given the user is on the "billing address" page
     When the user enters valid data in all required fields except "state"
     And the user enters <st> in the State field
-    Then the user receives a page error message
+    Then the user remains on the "billing address" page
+    And the user receives a page error message
     And the user receives field errors for the "state" field.
 
   Scenario: Invalid zip code
-    Given the user is on the billing address page
+    Given the user is on the "billing address" page
     When the user enters valid data in all required fields except "zip"
     And the user enters <zip> in the State field
-    Then the user receives a page error message
+    Then the user remains on the "billing address" page
+    And the user receives a page error message
     And the user receives field errors for the "zip" field.
 
     Examples:
@@ -105,10 +108,11 @@ Feature: billing address page
       | !@#$% |
 
   Scenario: Invalid phone number
-    Given the user is on the billing address page
+    Given the user is on the "billing address" page
     When the user enters valid data in all required fields except "phone"
     And the user enters <phone> in the State field
-    Then the user receives a page error message
+    Then the user remains on the "billing address" page
+    And the user receives a page error message
     And the user receives field errors for the "phone" field.
 
     Examples:
@@ -120,10 +124,11 @@ Feature: billing address page
       | ABCDEFGHIJ |
 
   Scenario: Invalid email address
-    Given the user is on the billing address page
+    Given the user is on the "billing address" page
     When the user enters valid data in all required fields except "email"
     And the user enters <email> in the State field
-    Then the user receives a page error message
+    Then the user remains on the "billing address" page
+    And the user receives a page error message
     And the user receives field errors for the "email" field.
 
     Examples:

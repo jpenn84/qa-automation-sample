@@ -8,7 +8,9 @@ Feature: Review page
       And the user enters <exp> date
       And the user enters security <code>
       And the user clicks the Next: Review button
-      Then the user will see the valid billing address data in the Billing address section
+      Then user will be navigated to the Review Page
+      And the "payment" form is no longer visible
+      And the user will see the valid billing address data in the Billing address section
       And the user will see "the same" valid shipping address data in the Shipping Address Section
       And the user will see <card-name>, <card-icon> ending in <lastDigits>, and a <formatted-exp> date
       
@@ -27,7 +29,9 @@ Feature: Review page
       And the user enters <exp> date
       And the user enters security <code>
       And the user clicks the Next: Review button
-      Then the user will see the valid billing address data in the Billing address section
+      Then user will be navigated to the Review Page
+      And the "payment" form is no longer visible
+      And the user will see the valid billing address data in the Billing address section
       And the user will see "the same" valid shipping address data in the Shipping Address Section
       And the user will see <card-name>, <card-icon> ending in <lastDigits>, and a <formatted-exp> date
       
@@ -38,4 +42,11 @@ Feature: Review page
       | John Smith | 378282246310005  | 1220 | 1234 | fa-cc-amex       | 00005      | 12/20         |
       | John Smith | 6011111111111117 | 1220 | 123  | fa-cc-discover   | 4242       | 12/20         |
 
-
+    Scenario: Payment declined modal
+      Given the user has entered valid billing address data and has navigated to the shipping address page
+      And the user has entered "the same" valid shipping address data and has navigated to the payment page
+      When the user enters a test card that returns as declined
+      And the user clicks the Next: Review button
+      And the user clicks the Next: Place Order button
+      Then the user remains on the "review" page
+      And the user is presented with a card declined modal
